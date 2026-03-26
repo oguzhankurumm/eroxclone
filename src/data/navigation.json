@@ -1,0 +1,37 @@
+{
+  "announcementBar": {
+    "text": "Yeni Üyelere Özel İlk Siparişe %5 İndirim | Gizli Paketleme Garantisi",
+    "enabled": true
+  },
+  "navLinks": [
+    { "label": "Vibratörler", "href": "/kategori/vibratorler" },
+    { "label": "Realistik Penis", "href": "/kategori/realistik-penis" },
+    { "label": "Mastürbatörler", "href": "/kategori/masturbatorler" },
+    { "label": "Anal Ürünler", "href": "/kategori/anal-urunler" },
+    { "label": "Fantezi Giyim", "href": "/kategori/fantezi-giyim" },
+    { "label": "Kayganlaştırıcılar", "href": "/kategori/kayganlastirici-jel" },
+    { "label": "Yeni Gelenler", "href": "/kategori/vibratorler?sort=new" },
+    { "label": "İndirimler", "href": "/kategori/vibratorler?sort=sale" }
+  ],
+  "footerLinks": {
+    "kategoriler": [
+      { "label": "Vibratörler", "href": "/kategori/vibratorler" },
+      { "label": "Realistik Penis", "href": "/kategori/realistik-penis" },
+      { "label": "Mastürbatörler", "href": "/kategori/masturbatorler" },
+      { "label": "Anal Ürünler", "href": "/kategori/anal-urunler" },
+      { "label": "Fantezi Giyim", "href": "/kategori/fantezi-giyim" },
+      { "label": "Kayganlaştırıcılar", "href": "/kategori/kayganlastirici-jel" }
+    ],
+    "kurumsal": [
+      { "label": "Hakkımızda", "href": "/hakkimizda" },
+      { "label": "İletişim", "href": "/iletisim" },
+      { "label": "Blog", "href": "/blog" }
+    ],
+    "yardim": [
+      { "label": "Sıkça Sorulan Sorular", "href": "/sss" },
+      { "label": "Kargo Bilgileri", "href": "/kargo" },
+      { "label": "İade ve Değişim", "href": "/iade" },
+      { "label": "Gizlilik Politikası", "href": "/gizlilik" }
+    ]
+  }
+}

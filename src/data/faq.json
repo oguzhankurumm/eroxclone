@@ -1,0 +1,62 @@
+[
+  {
+    "id": "faq-1",
+    "question": "Gizlilik ve Paketleme Bilgileri",
+    "answer": "Tüm siparişleriniz gizlilik ilkesine uygun olarak, ürün içeriğini belli etmeyecek şekilde özenle paketlenir. Kargo üzerinde mağaza adı veya ürün bilgisi yer almaz. Fatura da paket içine konulmaz, e-posta ile iletilir.",
+    "category": "gizlilik"
+  },
+  {
+    "id": "faq-2",
+    "question": "Kargo Seçenekleri",
+    "answer": "Siparişleriniz Yurtiçi Kargo veya Aras Kargo ile gönderilmektedir. Kargo takip numaranız sipariş onayınızdan sonra SMS ve e-posta ile tarafınıza iletilir. Siparişler genellikle 1-3 iş günü içinde kargoya verilir.",
+    "category": "kargo"
+  },
+  {
+    "id": "faq-3",
+    "question": "Kargo Ücretleri",
+    "answer": "300 TL ve üzeri siparişlerde kargo ücretsizdir. 300 TL altı siparişlerde sabit kargo ücreti uygulanır. Kampanya dönemlerinde özel kargo fırsatları sunulmaktadır.",
+    "category": "kargo"
+  },
+  {
+    "id": "faq-4",
+    "question": "İade Koşulları",
+    "answer": "Ürünlerimizi teslim aldığınız tarihten itibaren 14 gün içinde iade edebilirsiniz. İade edilecek ürünlerin kullanılmamış, orijinal ambalajında ve hijyen koşullarına uygun olması gerekmektedir.",
+    "category": "iade"
+  },
+  {
+    "id": "faq-5",
+    "question": "Sipariş nasıl verilir?",
+    "answer": "İstediğiniz ürünleri sepetinize ekleyin, ödeme sayfasına ilerleyin, IBAN bilgilerimize havale/EFT yapın ve dekontu WhatsApp üzerinden bize iletin. Siparişiniz doğrulandıktan sonra kargoya verilir.",
+    "category": "siparis"
+  },
+  {
+    "id": "faq-6",
+    "question": "Ödeme yöntemleri nelerdir?",
+    "answer": "Havale/EFT ile ödeme yapabilirsiniz. Sipariş verdiğinizde IBAN bilgilerimiz gösterilir. Ödemeyi yaptıktan sonra dekontu WhatsApp üzerinden bize göndermeniz yeterlidir.",
+    "category": "odeme"
+  },
+  {
+    "id": "faq-7",
+    "question": "Ürünler orijinal mi? Garanti var mı?",
+    "answer": "Tüm ürünlerimiz orijinal ve yetkili distribütör kanalıyla temin edilmektedir. Ürünlerin garantisi marka garantisi kapsamındadır.",
+    "category": "urun"
+  },
+  {
+    "id": "faq-8",
+    "question": "Ürün bakımı nasıl yapılır?",
+    "answer": "Ürünlerinizi kullanım sonrası ilk olarak ılık yıkama ile temizleyin. Silikon bazlı ürünler için su bazlı temizleyici kullanmanızı, su geçirmez olmayan ürünleri suya sokmamanızı öneririz.",
+    "category": "urun"
+  },
+  {
+    "id": "faq-9",
+    "question": "Güvenli alışveriş yapabilir miyim?",
+    "answer": "Evet, sitemiz SSL sertifikası ile korunmaktadır. Kişisel bilgileriniz şifrelenerek korunur. Ödeme bilgileriniz sunucularımızda saklanmaz.",
+    "category": "guvenlik"
+  },
+  {
+    "id": "faq-10",
+    "question": "Sipariş takibi nasıl yapılır?",
+    "answer": "Siparişiniz kargoya verildikten sonra size SMS ve e-posta ile kargo takip numarası gönderilir. Bu numara ile kargo firmasının web sitesinden siparişinizi takip edebilirsiniz.",
+    "category": "siparis"
+  }
+]

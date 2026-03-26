@@ -1,0 +1,71 @@
+{
+  "siteName": "EROX",
+  "siteTagline": "live in the moment",
+  "siteUrl": "https://erox.com.tr",
+  "logo": "https://cdn.myikas.com/images/theme-images/9701a935-cb41-4613-a6b2-0cd7b46bc922/image_1080.webp",
+  "favicon": "/favicon.ico",
+  "contact": {
+    "phone": "+90 532 384 33 37",
+    "email": "info@erox.com.tr",
+    "whatsapp": "905306659934"
+  },
+  "social": {
+    "instagram": "https://instagram.com/eroxcomtr",
+    "youtube": "https://youtube.com/@eroxcomtr",
+    "tiktok": "https://tiktok.com/@eroxcomtr"
+  },
+  "payment": {
+    "methods": ["Visa", "Mastercard", "Troy", "Havale/EFT"],
+    "ibanAccounts": [
+      {
+        "id": "iban-1",
+        "bankName": "Ziraat Bankası",
+        "accountHolder": "EROX TİCARET A.Ş.",
+        "ibanNumber": "TR12 0001 0012 3456 7890 1234 56"
+      },
+      {
+        "id": "iban-2",
+        "bankName": "Garanti BBVA",
+        "accountHolder": "EROX TİCARET A.Ş.",
+        "ibanNumber": "TR98 0006 2000 1234 5678 9012 34"
+      }
+    ],
+    "havaleDiscount": 3,
+    "havaleDiscountText": "Havale/EFT ile %3 indirim"
+  },
+  "shipping": {
+    "freeShippingThreshold": 300,
+    "standardShippingFee": 29.90,
+    "estimatedDelivery": "1-3 iş günü",
+    "expressDelivery": "Aynı gün (İstanbul/Ankara)",
+    "carriers": ["Yurtiçi Kargo", "Aras Kargo"]
+  },
+  "stores": [
+    {
+      "name": "Mecidiyeköy Erotik Sex Shop Mağazası",
+      "city": "İstanbul",
+      "district": "Şişli",
+      "address": "Mecidiyeköy Mah. Büyükdere Cad. No:45/19 Kat:2 Andaç İş Hanı, 34360 Şişli/İstanbul",
+      "slug": "mecidiyekoy"
+    },
+    {
+      "name": "Ankara Erotik Sex Shop Mağazası",
+      "city": "Ankara",
+      "district": "Çankaya",
+      "address": "Sakarya Cad. Ali Nazmi İşhanı No:1 Kat:2 D:14 Çankaya/Ankara",
+      "slug": "ankara"
+    },
+    {
+      "name": "İstanbul Kadıköy Erotik Sex Shop Mağazası",
+      "city": "İstanbul",
+      "district": "Kadıköy",
+      "address": "Söğütlüçeşme Cad. Cem İş Hanı No:55 Kat:2 Kadıköy/İstanbul",
+      "slug": "kadikoy"
+    }
+  ],
+  "seo": {
+    "defaultTitle": "EROX | Türkiye'nin Premium Sex Shop Mağazası",
+    "defaultDescription": "EROX Sex Shop - Türkiye'nin en güvenilir yetişkin ürün mağazası. Lovense, LELO, We-Vibe, Satisfyer ve daha fazlası. Gizli paketleme, hızlı kargo.",
+    "keywords": "sex shop, vibratör, cinsel sağlık, wellness, lovense, lelo, we-vibe, gizli alışveriş, erox"
+  }
+}

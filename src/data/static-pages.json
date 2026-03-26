@@ -1,0 +1,107 @@
+{
+  "hakkimizda": {
+    "title": "Hakkımızda",
+    "sections": [
+      {
+        "heading": "EROX Hakkında",
+        "content": "EROX, Türkiye'nin lider yetişkin sağlık ve kişisel bakım ürünleri mağazasıdır. 2002 yılından bu yana müşteri odaklı hizmet anlayışıyla, dünya çapında tanınmış markaların resmi distribütör olarak Türkiye'deki tek yetkili satıcılarındandır."
+      },
+      {
+        "heading": "Misyonumuz",
+        "content": "Türkiye'de cinsel sağlık alanındaki tabuları yıkmak, insanların cinsel sağlıklarını rahatça keşfetmelerine yardımcı olmak ve kaliteli ürünlere erişimini sağlamaktır."
+      },
+      {
+        "heading": "Vizyonumuz",
+        "content": "Bölgemizde en güvenilir ve en kapsamlı yetişkin wellness platformu olmak. Yenilikçi ürünler, eğitim odaklı yaklaşımımız ve ürün çeşitliliğimizle cinsel sağlık bilincini artırmak."
+      },
+      {
+        "heading": "Rakamlarla EROX",
+        "stats": [
+          { "value": "22+", "label": "Yıllık Deneyim" },
+          { "value": "500K+", "label": "Mutlu Müşteri" },
+          { "value": "3500+", "label": "Ürün Çeşidi" },
+          { "value": "100+", "label": "Marka" }
+        ]
+      }
+    ]
+  },
+  "kargo": {
+    "title": "Kargo Bilgileri",
+    "sections": [
+      {
+        "heading": "Ücretsiz Kargo",
+        "icon": "Truck",
+        "content": "300 TL ve üzeri tüm siparişlerinizde ücretsiz kargo avantajından yararlanın. Siparişleriniz Yurtiçi Kargo veya Aras Kargo ile güvenli bir şekilde adresinize teslim edilir."
+      },
+      {
+        "heading": "Gizli Paketleme",
+        "icon": "Package",
+        "content": "Tüm siparişler düz, sade ve isimsiz karton kutularda gönderilir. Kargo üzerinde ürün adı, mağaza adı veya içerik bilgisi bulunmaz. Faturanız dijital olarak e-posta ile gönderilir."
+      },
+      {
+        "heading": "Teslimat Süresi",
+        "icon": "Clock",
+        "content": "İstanbul içi siparişlerde aynı gün teslimat imkânı. Diğer büyük şehirlerde 1-2 iş günü, Türkiye genelinde 2-4 iş günü içinde teslimat sağlanır."
+      },
+      {
+        "heading": "Kargo Takibi",
+        "icon": "MapPin",
+        "content": "Siparişiniz kargoya verildikten sonra size SMS ve e-posta ile kargo takip numarası gönderilir."
+      }
+    ]
+  },
+  "iade": {
+    "title": "İade ve Değişim",
+    "sections": [
+      {
+        "heading": "İade Koşulları",
+        "content": "6502 sayılı Tüketicinin Korunması Hakkında Kanun kapsamında, ürünlerimizi teslim aldığınız tarihten itibaren 14 gün içinde iade edebilirsiniz. İade edilecek ürünlerin kullanılmamış, orijinal ambalajında ve hijyen koşullarına uygun olması gerekmektedir."
+      },
+      {
+        "heading": "İade Süreci",
+        "steps": [
+          "Müşteri hizmetlerimizle iletişime geçerek iade talebinizi oluşturun",
+          "Ürünü orijinal ambalajında, kullanılmamış şekilde kargoya verin",
+          "İade kargo ücreti tarafımızca karşılanır",
+          "Ürün elimize ulaştıktan sonra 3 iş günü içinde iade işleminiz başlatılır"
+        ]
+      },
+      {
+        "heading": "Para İadesi",
+        "content": "Kredi kartı ile yapılan ödemelerde iade tutarı 5-10 iş günü içinde kartınıza yansır. Havale/EFT ile yapılan ödemelerde iade tutarı belirteceğiniz banka hesabına aktarılır."
+      }
+    ]
+  },
+  "gizlilik": {
+    "title": "Gizlilik Politikası",
+    "sections": [
+      {
+        "heading": "Kişisel Verilerin Korunması",
+        "content": "EROX olarak, müşterilerimizin gizliliğini ve kişisel verilerinin güvenliğini üst düzeyde önemsiyoruz. 6698 sayılı KVKK kapsamında veri sorumlusu sıfatıyla kişisel verilerinizi korumaktayız."
+      },
+      {
+        "heading": "Toplanan Veriler",
+        "items": [
+          "Ad, soyad, e-posta adresi, telefon numarası",
+          "Teslimat ve fatura adresi bilgileri",
+          "Sipariş geçmişi ve alışveriş tercihleri",
+          "Tarayıcı türü, işletim sistemi bilgileri",
+          "Çerez kullanım verileri"
+        ]
+      },
+      {
+        "heading": "Veri Güvenliği",
+        "content": "Kişisel verileriniz SSL şifreleme teknolojisi ile korunmaktadır. Ödeme bilgileriniz sunucularımızda saklanmamaktadır."
+      }
+    ]
+  },
+  "iletisim": {
+    "title": "İletişim",
+    "info": {
+      "phone": "+90 532 384 33 37",
+      "email": "info@erox.com.tr",
+      "address": "Mecidiyeköy Mah. Büyükdere Cad. No:45/19 Kat:2 Andaç İş Hanı, 34360 Şişli/İstanbul",
+      "workingHours": "Pazartesi - Cumartesi: 09:00 - 22:00, Pazar: 10:00 - 20:00"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "trust-1",
+    "icon": "Package",
+    "title": "Gizli Paketleme",
+    "description": "Tüm siparişler gizli ve özenli şekilde paketlenir"
+  },
+  {
+    "id": "trust-2",
+    "icon": "Shield",
+    "title": "Güvenli Ödeme",
+    "description": "256-bit SSL şifreleme ile güvenli alışveriş"
+  },
+  {
+    "id": "trust-3",
+    "icon": "Award",
+    "title": "Orijinal Ürün",
+    "description": "Tüm ürünler orijinal ve garantilidir"
+  },
+  {
+    "id": "trust-4",
+    "icon": "RefreshCw",
+    "title": "Kolay İade",
+    "description": "14 gün içinde koşulsuz iade imkânı"
+  }
+]
