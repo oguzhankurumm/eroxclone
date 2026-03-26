@@ -1,0 +1,71 @@
+{
+  "siteName": "EROX",
+  "siteTagline": "live in the moment",
+  "siteUrl": "https://erox.com.tr",
+  "logo": "https://cdn.myikas.com/images/theme-images/9701a935-cb41-4613-a6b2-0cd7b46bc922/image_1080.webp",
+  "favicon": "/favicon.ico",
+  "contact": {
+    "phone": "+90 532 384 33 37",
+    "email": "info@erox.com.tr",
+    "whatsapp": "905323843337"
+  },
+  "social": {
+    "instagram": "https://instagram.com/eroxcomtr",
+    "youtube": "https://youtube.com/@eroxcomtr",
+    "tiktok": "https://tiktok.com/@eroxcomtr"
+  },
+  "payment": {
+    "methods": ["Visa", "Mastercard", "Troy", "Havale/EFT"],
+    "ibanAccounts": [
+      {
+        "id": "iban-1",
+        "bankName": "Ziraat Bankasi",
+        "accountHolder": "EROX TICARET A.S.",
+        "ibanNumber": "TR12 0001 0012 3456 7890 1234 56"
+      },
+      {
+        "id": "iban-2",
+        "bankName": "Garanti BBVA",
+        "accountHolder": "EROX TICARET A.S.",
+        "ibanNumber": "TR98 0006 2000 1234 5678 9012 34"
+      }
+    ],
+    "havaleDiscount": 3,
+    "havaleDiscountText": "Havale/EFT ile %3 indirim"
+  },
+  "shipping": {
+    "freeShippingThreshold": 300,
+    "standardShippingFee": 29.90,
+    "estimatedDelivery": "1-3 is gunu",
+    "expressDelivery": "Ayni gun (Istanbul/Ankara)",
+    "carriers": ["Yurtici Kargo", "Aras Kargo"]
+  },
+  "stores": [
+    {
+      "name": "Mecidiyekoy Magaza",
+      "city": "Istanbul",
+      "district": "Mecidiyekoy",
+      "address": "Mecidiyekoy, Istanbul",
+      "slug": "mecidiyekoy"
+    },
+    {
+      "name": "Ankara Magaza",
+      "city": "Ankara",
+      "district": "Kizilay",
+      "address": "Ankara",
+      "slug": "ankara"
+    },
+    {
+      "name": "Kadikoy Magaza",
+      "city": "Istanbul",
+      "district": "Kadikoy",
+      "address": "Kadikoy, Istanbul",
+      "slug": "kadikoy"
+    }
+  ],
+  "seo": {
+    "defaultTitle": "EROX | Turkiye'nin Premium Sex Shop Magazasi",
+    "defaultDescription": "EROX Sex Shop - Turkiye'nin en guvenilir yetiskin urun magazasi. Lovense, LELO, We-Vibe, Satisfyer ve daha fazlasi. Gizli paketleme, hizli kargo.",
+    "keywords": "sex shop, vibrator, cinsel saglik, wellness, lovense, lelo, we-vibe, gizli alisveris, erox"
+  }
+}

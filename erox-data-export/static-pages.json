@@ -1,0 +1,107 @@
+{
+  "hakkimizda": {
+    "title": "Hakkimizda",
+    "sections": [
+      {
+        "heading": "EROX Hakkinda",
+        "content": "EROX, Turkiye'nin lider yetiskin saglik ve kisisel bakim urunleri magazasidir. 2002 yilindan bu yana musteri odakli hizmet anlayisiyla, dunya capinda taninmis markalarin resmi distributor olarak Turkiye'deki tek yetkili saticilarindandir."
+      },
+      {
+        "heading": "Misyonumuz",
+        "content": "Turkiye'de cinsel saglik alanindaki tabulari yikmak, insanlarin cinsel sagliklarini rahatca kesfetmelerine yardimci olmak ve kaliteli urunlere erisimini saglamaktir."
+      },
+      {
+        "heading": "Vizyonumuz",
+        "content": "Bolgemizde en guvenilir ve en kapsamli yetiskin wellness platformu olmak. Yenilikci urunler, egitim odakli yaklasimimiz ve urun cesitliligimizle cinsel saglik bilincini artirmak."
+      },
+      {
+        "heading": "Rakamlarla EROX",
+        "stats": [
+          { "value": "22+", "label": "Yillik Deneyim" },
+          { "value": "500K+", "label": "Mutlu Musteri" },
+          { "value": "3500+", "label": "Urun Cesidi" },
+          { "value": "100+", "label": "Marka" }
+        ]
+      }
+    ]
+  },
+  "kargo": {
+    "title": "Kargo Bilgileri",
+    "sections": [
+      {
+        "heading": "Ucretsiz Kargo",
+        "icon": "Truck",
+        "content": "300 TL ve uzeri tum siparislerinizde ucretsiz kargo avantajindan yararlanin. Siparisleriniz Yurtici Kargo veya Aras Kargo ile guvenli bir sekilde adresinize teslim edilir."
+      },
+      {
+        "heading": "Gizli Paketleme",
+        "icon": "Package",
+        "content": "Tum siparisler duz, sade ve isimsiz karton kutularda gonderilir. Kargo uzerinde urun adi, magaza adi veya icerik bilgisi bulunmaz. Faturaniz dijital olarak e-posta ile gonderilir."
+      },
+      {
+        "heading": "Teslimat Suresi",
+        "icon": "Clock",
+        "content": "Istanbul ici siparislerde ayni gun teslimat imkani. Diger buyuk sehirlerde 1-2 is gunu, Turkiye genelinde 2-4 is gunu icinde teslimat saglanir."
+      },
+      {
+        "heading": "Kargo Takibi",
+        "icon": "MapPin",
+        "content": "Siparisiniz kargoya verildikten sonra size SMS ve e-posta ile kargo takip numarasi gonderilir."
+      }
+    ]
+  },
+  "iade": {
+    "title": "Iade ve Degisim",
+    "sections": [
+      {
+        "heading": "Iade Kosullari",
+        "content": "6502 sayili Tuketicinin Korunmasi Hakkinda Kanun kapsaminda, urunlerimizi teslim aldiginiz tarihten itibaren 14 gun icinde iade edebilirsiniz. Iade edilecek urunlerin kullanilmamis, orijinal ambalajinda ve hijyen kosullarina uygun olmasi gerekmektedir."
+      },
+      {
+        "heading": "Iade Sureci",
+        "steps": [
+          "Musteri hizmetlerimizle iletisime gecerek iade talebinizi olusturun",
+          "Urunu orijinal ambalajinda, kullanilmamis sekilde kargoya verin",
+          "Iade kargo ucreti tarafimizca karsilanir",
+          "Urun elimize ulastiktan sonra 3 is gunu icinde iade isleminiz baslatilir"
+        ]
+      },
+      {
+        "heading": "Para Iadesi",
+        "content": "Kredi karti ile yapilan odemelerde iade tutari 5-10 is gunu icinde kartiniza yansir. Havale/EFT ile yapilan odemelerde iade tutari belirteceginiz banka hesabina aktarilir."
+      }
+    ]
+  },
+  "gizlilik": {
+    "title": "Gizlilik Politikasi",
+    "sections": [
+      {
+        "heading": "Kisisel Verilerin Korunmasi",
+        "content": "EROX olarak, musterilerimizin gizliligini ve kisisel verilerinin guvenligini ust duzeyde onemsiyoruz. 6698 sayili KVKK kapsaminda veri sorumlusu sifatiyla kisisel verilerinizi korumaktayiz."
+      },
+      {
+        "heading": "Toplanan Veriler",
+        "items": [
+          "Ad, soyad, e-posta adresi, telefon numarasi",
+          "Teslimat ve fatura adresi bilgileri",
+          "Siparis gecmisi ve alisveris tercihleri",
+          "Tarayici turu, isletim sistemi bilgileri",
+          "Cerez kullanim verileri"
+        ]
+      },
+      {
+        "heading": "Veri Guvenligi",
+        "content": "Kisisel verileriniz SSL sifreleme teknolojisi ile korunmaktadir. Odeme bilgileriniz sunucularimizda saklanmamaktadir."
+      }
+    ]
+  },
+  "iletisim": {
+    "title": "Iletisim",
+    "info": {
+      "phone": "+90 532 384 33 37",
+      "email": "info@erox.com.tr",
+      "address": "Mecidiyekoy, Istanbul, Turkiye",
+      "workingHours": "Pazartesi - Cumartesi: 09:00 - 22:00, Pazar: 10:00 - 20:00"
+    }
+  }
+}
