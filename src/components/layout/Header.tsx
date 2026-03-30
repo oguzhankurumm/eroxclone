@@ -32,7 +32,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <Image
-              src="https://cdn.myikas.com/images/theme-images/9701a935-cb41-4613-a6b2-0cd7b46bc922/image_1080.webp"
+              src="https://cdn.myikas.com/images/3910985d-383a-4db5-ab74-3ebd1bfde2ba/3a1f33b1-4341-4eea-966e-20753dc05fa5/image_1080.webp"
               alt="EROX"
               width={130}
               height={45}

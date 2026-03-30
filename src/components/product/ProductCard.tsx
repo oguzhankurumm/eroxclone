@@ -16,6 +16,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const [hovered, setHovered] = useState(false)
+  const [imgError, setImgError] = useState(false)
   const addItem = useCartStore((s) => s.addItem)
 
   const discount = product.salePrice
@@ -43,13 +44,21 @@ export function ProductCard({ product }: ProductCardProps) {
     >
       {/* Image */}
       <div className="relative aspect-[4/5] bg-[#F8F8F8] overflow-hidden">
-        <Image
-          src={hovered && hasSecondImage ? product.images[1] : product.images[0]}
-          alt={`${product.name} - ${product.brand}`}
-          fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          className="object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
-        />
+        {imgError ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-[#77777b] p-4">
+            <ShoppingBag className="w-10 h-10 mb-2 opacity-30" />
+            <span className="text-[10px] text-center leading-tight opacity-50">{product.brand}</span>
+          </div>
+        ) : (
+          <Image
+            src={hovered && hasSecondImage ? product.images[1] : product.images[0]}
+            alt={`${product.name} - ${product.brand}`}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
+            onError={() => setImgError(true)}
+          />
+        )}
 
         {/* Discount badge */}
         {discount > 0 && (

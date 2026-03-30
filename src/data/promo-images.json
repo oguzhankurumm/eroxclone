@@ -3,60 +3,60 @@
     "section1_promoBoxes": [
       {
         "title": "Erkeklere Ozel Urunler",
-        "href": "/erkekler-icin",
-        "image": "https://cdn.myikas.com/images/theme-images/aad49e3c-f9f1-47f2-876a-c1f7e439bb19/image_1080.webp"
+        "href": "/kategori/erkekler-icin",
+        "image": "https://cdn.myikas.com/images/theme-images/a5619a09-5962-42bd-92a0-ad54043e6cdd/image_1080.webp"
       },
       {
         "title": "Kadinlara Ozel Urunler",
-        "href": "/kadinlar-icin",
-        "image": "https://cdn.myikas.com/images/theme-images/60bb8f02-dca3-4e23-b6fd-0c8a13b4f694/image_1080.webp"
+        "href": "/kategori/kadinlar-icin",
+        "image": "https://cdn.myikas.com/images/theme-images/29eff717-7d01-493f-80a8-1ac4ee8b5727/image_1080.webp"
       },
       {
         "title": "Ciftler Icin Urunler",
-        "href": "/ciftler-icin",
-        "image": "https://cdn.myikas.com/images/theme-images/a9fd403c-cca5-4e7d-9e12-7c0e7eb48e32/image_1080.webp"
+        "href": "/kategori/vibratorler",
+        "image": "https://cdn.myikas.com/images/theme-images/9c730a11-92f6-4fe8-8fa5-5170ac64c807/image_1080.webp"
       }
     ],
     "section2_featuredCategories": [
       {
         "name": "Realistik Penisler",
         "slug": "realistik-penis",
-        "image": "https://cdn.myikas.com/images/3910985d-383a-4db5-ab74-3ebd1bfde2ba/e63f5ce3-65d3-4e0a-a2c6-79e52e5a39bf/image_1080.webp"
+        "image": "https://cdn.myikas.com/images/theme-images/de4f0f42-626a-41fe-ae54-92d5863aa47f/image_540.webp"
       },
       {
         "name": "Penis Pompasi",
         "slug": "penis-pompasi",
-        "image": "https://cdn.myikas.com/images/3910985d-383a-4db5-ab74-3ebd1bfde2ba/4f8c9d1b-2a3e-4c7f-b5d6-8e1f3a2c4d5e/image_1080.webp"
+        "image": "https://cdn.myikas.com/images/theme-images/300d527d-b3bd-450f-a5d2-6fe270bf7028/image_540.webp"
       },
       {
         "name": "Penis Kiliflari",
         "slug": "penis-kilifi",
-        "image": "https://cdn.myikas.com/images/3910985d-383a-4db5-ab74-3ebd1bfde2ba/5a7b8c9d-3e4f-4d5a-c6b7-9f2a1b3c4d5e/image_1080.webp"
+        "image": "https://cdn.myikas.com/images/theme-images/ab42d6a2-85e6-4729-955a-5d7990e9f4f9/image_540.webp"
       },
       {
         "name": "Masturbatorler",
         "slug": "masturbatorler",
-        "image": "https://cdn.myikas.com/images/3910985d-383a-4db5-ab74-3ebd1bfde2ba/6b8c9d0e-4f5a-4e6b-d7c8-0a3b2c4d5e6f/image_1080.webp"
+        "image": "https://cdn.myikas.com/images/theme-images/3fa75c56-583f-4042-bded-ba79570754c2/image_540.webp"
       },
       {
         "name": "Vibratorler",
         "slug": "vibratorler",
-        "image": "https://cdn.myikas.com/images/3910985d-383a-4db5-ab74-3ebd1bfde2ba/7c9d0e1f-5a6b-4f7c-e8d9-1b4c3d5e6f7a/image_1080.webp"
+        "image": "https://cdn.myikas.com/images/theme-images/f76f0dfd-ba79-46a0-a307-6bfa0ac228c9/image_540.webp"
       },
       {
         "name": "Seks Makineleri",
         "slug": "seks-makinesi",
-        "image": "https://cdn.myikas.com/images/3910985d-383a-4db5-ab74-3ebd1bfde2ba/8d0e1f2a-6b7c-4a8d-f9e0-2c5d4e6f7a8b/image_1080.webp"
+        "image": "https://cdn.myikas.com/images/theme-images/f1f76ea3-3323-42f5-bf57-81138114bab8/image_540.webp"
       },
       {
         "name": "Strap-On",
         "slug": "straponlar",
-        "image": "https://cdn.myikas.com/images/3910985d-383a-4db5-ab74-3ebd1bfde2ba/9e1f2a3b-7c8d-4b9e-a0f1-3d6e5f7a8b9c/image_1080.webp"
+        "image": "https://cdn.myikas.com/images/theme-images/d76ebd40-92c3-4d6d-b0e9-e7b8cdb43935/image_540.webp"
       },
       {
         "name": "Fantezi Giyim",
         "slug": "fantezi-giyim",
-        "image": "https://cdn.myikas.com/images/3910985d-383a-4db5-ab74-3ebd1bfde2ba/0f2a3b4c-8d9e-4c0f-b1a2-4e7f6a8b9c0d/image_1080.webp"
+        "image": "https://cdn.myikas.com/images/theme-images/9fdc1413-8e0d-4af4-8843-bddcc68b7f72/image_540.webp"
       }
     ]
   },
@@ -64,17 +64,17 @@
     {
       "alt": "Kargo bilgileri",
       "href": "/kargo",
-      "image": "https://cdn.myikas.com/images/theme-images/599744a8-dcc2-4cb1-886e-6b4482a104d6/image_1080.webp"
+      "image": "https://cdn.myikas.com/images/theme-images/9a943b4c-347a-4259-ad6a-8ba851cb1b27/image_1080.webp"
     },
     {
       "alt": "Gizlilik politikasi",
       "href": "/gizlilik",
-      "image": "https://cdn.myikas.com/images/theme-images/d2e33c41-95e4-4a47-993c-2763cf8731f1/image_1080.webp"
+      "image": "https://cdn.myikas.com/images/theme-images/bec9218b-5935-4277-a77f-7fa058d3d854/image_1080.webp"
     },
     {
       "alt": "Hakkimizda",
       "href": "/hakkimizda",
-      "image": "https://cdn.myikas.com/images/theme-images/7027db39-8763-41a1-bd49-fa556127f30a/image_1080.webp"
+      "image": "https://cdn.myikas.com/images/theme-images/c91feb29-d8c3-4bab-b294-9d2c0e9f8085/image_1080.webp"
     }
   ]
 }
