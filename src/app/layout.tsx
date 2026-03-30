@@ -1,11 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { getSiteConfig } from "@/lib/data";
+import { LayoutShell } from "@/components/layout/LayoutShell";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -49,17 +46,7 @@ export default function RootLayout({
   return (
     <html lang="tr" className={`${dmSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-2 focus:left-2 focus:bg-[#FB4D8A] focus:text-white focus:px-4 focus:py-2 focus:rounded-xl focus:text-sm focus:font-semibold"
-        >
-          Ana içeriğe geç
-        </a>
-        <AnnouncementBar />
-        <Header />
-        <main id="main-content" className="flex-1 pb-16 lg:pb-0">{children}</main>
-        <Footer />
-        <MobileBottomNav />
+        <LayoutShell>{children}</LayoutShell>
         <Toaster
           position="top-center"
           toastOptions={{
