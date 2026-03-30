@@ -51,7 +51,8 @@ export function OrderStatusChart({ data }: { data: StatusData[] }) {
           </Pie>
           <Tooltip
             contentStyle={{ borderRadius: 12, border: '1px solid #eee', fontSize: 13 }}
-            formatter={(value: number, name: string) => [value, name]}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            formatter={(value: any, name: any) => [value, name]}
           />
         </PieChart>
       </ResponsiveContainer>

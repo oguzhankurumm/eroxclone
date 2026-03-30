@@ -26,8 +26,9 @@ export function RevenueChart({ data }: Props) {
         <YAxis tick={{ fontSize: 11, fill: '#77777b' }} tickFormatter={(v) => `₺${(v / 1000).toFixed(0)}k`} />
         <Tooltip
           contentStyle={{ borderRadius: 12, border: '1px solid #eee', fontSize: 13 }}
-          formatter={(value: number, name: string) => [
-            name === 'revenue' ? `₺${value.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}` : value,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          formatter={(value: any, name: any) => [
+            name === 'revenue' ? `₺${Number(value).toLocaleString('tr-TR', { minimumFractionDigits: 2 })}` : value,
             name === 'revenue' ? 'Gelir' : 'Sipariş',
           ]}
           labelStyle={{ fontWeight: 600, color: '#003033' }}
