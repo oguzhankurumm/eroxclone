@@ -1,0 +1,69 @@
+'use client'
+
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
+
+interface StatusData {
+  status: string
+  count: number
+  revenue: number
+}
+
+const STATUS_CONFIG: Record<string, { label: string; color: string }> = {
+  PENDING: { label: 'Bekliyor', color: '#F59E0B' },
+  PAYMENT_RECEIVED: { label: 'Ödeme Alındı', color: '#3B82F6' },
+  PROCESSING: { label: 'Hazırlanıyor', color: '#8B5CF6' },
+  SHIPPED: { label: 'Kargoda', color: '#6366F1' },
+  DELIVERED: { label: 'Teslim Edildi', color: '#10B981' },
+  CANCELLED: { label: 'İptal', color: '#EF4444' },
+}
+
+export function OrderStatusChart({ data }: { data: StatusData[] }) {
+  const chartData = data.map((d) => ({
+    name: STATUS_CONFIG[d.status]?.label || d.status,
+    value: d.count,
+    color: STATUS_CONFIG[d.status]?.color || '#77777b',
+  }))
+
+  if (chartData.length === 0) {
+    return (
+      <div className="h-[280px] flex items-center justify-center text-sm text-[#77777b]">
+        Henüz sipariş verisi yok
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <ResponsiveContainer width="100%" height={200}>
+        <PieChart>
+          <Pie
+            data={chartData}
+            cx="50%"
+            cy="50%"
+            innerRadius={55}
+            outerRadius={80}
+            paddingAngle={3}
+            dataKey="value"
+          >
+            {chartData.map((entry, i) => (
+              <Cell key={i} fill={entry.color} />
+            ))}
+          </Pie>
+          <Tooltip
+            contentStyle={{ borderRadius: 12, border: '1px solid #eee', fontSize: 13 }}
+            formatter={(value: number, name: string) => [value, name]}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+      <div className="flex flex-wrap gap-2 justify-center mt-2">
+        {chartData.map((d, i) => (
+          <div key={i} className="flex items-center gap-1.5 text-xs">
+            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color }} />
+            <span className="text-[#77777b]">{d.name}</span>
+            <span className="font-semibold text-[#003033]">{d.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
