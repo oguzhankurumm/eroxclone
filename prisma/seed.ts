@@ -18,7 +18,7 @@ async function main() {
     update: {},
     create: {
       email: 'admin@erox.com.tr',
-      phone: '905306659934',
+      phone: '905531271404',
       password: adminPassword,
       name: 'Admin',
       role: 'ADMIN',
@@ -44,9 +44,9 @@ async function main() {
 
   // Create site settings
   const settings = [
-    { key: 'phone', value: '+90 532 384 33 37' },
+    { key: 'phone', value: '+90 553 127 14 04' },
     { key: 'email', value: 'info@erox.com.tr' },
-    { key: 'whatsapp', value: '905306659934' },
+    { key: 'whatsapp', value: '905531271404' },
     { key: 'address_mecidiyekoy', value: 'Mecidiyeköy Mah. Büyükdere Cad. No:45/19 Kat:2 Andaç İş Hanı, 34360 Şişli/İstanbul' },
     { key: 'address_ankara', value: 'Sakarya Cad. Ali Nazmi İşhanı No:1 Kat:2 D:14 Çankaya/Ankara' },
     { key: 'address_kadikoy', value: 'Söğütlüçeşme Cad. Cem İş Hanı No:55 Kat:2 Kadıköy/İstanbul' },

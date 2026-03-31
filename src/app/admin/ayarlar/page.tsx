@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import { Save, Phone, Mail, MessageCircle, MapPin, Check } from 'lucide-react'
 
 const settingFields = [
-  { key: 'phone', label: 'Telefon Numarası', icon: Phone, placeholder: '+90 532 384 33 37' },
+  { key: 'phone', label: 'Telefon Numarası', icon: Phone, placeholder: '+90 553 127 14 04' },
   { key: 'email', label: 'E-posta Adresi', icon: Mail, placeholder: 'info@erox.com.tr' },
-  { key: 'whatsapp', label: 'WhatsApp Numarası', icon: MessageCircle, placeholder: '905306659934', hint: 'Başında 90 ile, boşluksuz (örn: 905XXXXXXXXX)' },
+  { key: 'whatsapp', label: 'WhatsApp Numarası', icon: MessageCircle, placeholder: '905531271404', hint: 'Başında 90 ile, boşluksuz (örn: 905XXXXXXXXX)' },
   { key: 'address_mecidiyekoy', label: 'Mecidiyeköy Mağaza Adresi', icon: MapPin, placeholder: 'Adres...', multiline: true },
   { key: 'address_ankara', label: 'Ankara Mağaza Adresi', icon: MapPin, placeholder: 'Adres...', multiline: true },
   { key: 'address_kadikoy', label: 'Kadıköy Mağaza Adresi', icon: MapPin, placeholder: 'Adres...', multiline: true },
