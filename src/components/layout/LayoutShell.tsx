@@ -5,6 +5,7 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 import { MobileBottomNav } from './MobileBottomNav'
 import { AnnouncementBar } from './AnnouncementBar'
+import { WhatsAppFAB } from '@/components/shared/WhatsAppFAB'
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -32,6 +33,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       <main id="main-content" className="flex-1 pb-16 lg:pb-0">{children}</main>
       <Footer />
       <MobileBottomNav />
+      <WhatsAppFAB />
     </>
   )
 }
