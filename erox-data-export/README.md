@@ -89,7 +89,7 @@
 
 Sipariş → IBAN göster → Müşteri havale yapar → WhatsApp'tan dekont gönderir → Sipariş onaylanır → Kargoya verilir
 
-- WhatsApp: +90 532 384 33 37
+- WhatsApp: +90 553 127 14 04
 - IBAN'lar: site-config.json içinde
 - Havale indirimi: %3
 

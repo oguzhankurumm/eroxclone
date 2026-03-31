@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { X, Send, MessageCircle } from 'lucide-react'
 
-const WHATSAPP_NUMBER = '905303390931'
+const WHATSAPP_NUMBER = '905531271404'
 const AGENT_NAME = 'Erox Destek'
 
 export function WhatsAppFAB() {
