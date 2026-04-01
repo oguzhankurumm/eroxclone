@@ -6,6 +6,7 @@ import { Footer } from './Footer'
 import { MobileBottomNav } from './MobileBottomNav'
 import { AnnouncementBar } from './AnnouncementBar'
 import { WhatsAppFAB } from '@/components/shared/WhatsAppFAB'
+import { AgeVerificationModal } from '@/components/shared/AgeVerificationModal'
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -34,6 +35,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       <Footer />
       <MobileBottomNav />
       <WhatsAppFAB />
+      <AgeVerificationModal />
     </>
   )
 }

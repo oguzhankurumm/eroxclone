@@ -21,6 +21,15 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
   title: {
     default: siteConfig.seo.defaultTitle,
     template: `%s | ${siteConfig.siteName}`,
