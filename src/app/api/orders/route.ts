@@ -16,13 +16,16 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const session = await getSession()
-  if (!session) return NextResponse.json({ error: 'Giriş yapmanız gerekiyor' }, { status: 401 })
-
   const data = await request.json()
-  const { items, address, totalAmount, bankName } = data
+  const { items, address, totalAmount, bankName, guestName, guestPhone } = data
 
   if (!items?.length || !address || !totalAmount || !bankName) {
     return NextResponse.json({ error: 'Eksik bilgi' }, { status: 400 })
+  }
+
+  // Guest checkout: require name and phone
+  if (!session && (!guestName || !guestPhone)) {
+    return NextResponse.json({ error: 'Ad soyad ve telefon zorunludur' }, { status: 400 })
   }
 
   const orderNumber = `ERX-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`
@@ -30,7 +33,9 @@ export async function POST(request: Request) {
   const order = await prisma.order.create({
     data: {
       orderNumber,
-      userId: session.userId,
+      userId: session?.userId || null,
+      guestName: session ? null : guestName,
+      guestPhone: session ? null : guestPhone,
       address,
       totalAmount,
       bankName,

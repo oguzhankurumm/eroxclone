@@ -28,6 +28,7 @@
       { "label": "Blog", "href": "/blog" }
     ],
     "yardim": [
+      { "label": "Sipariş Sorgula", "href": "/siparis-sorgula" },
       { "label": "Sıkça Sorulan Sorular", "href": "/sss" },
       { "label": "Kargo Bilgileri", "href": "/kargo" },
       { "label": "İade ve Değişim", "href": "/iade" },

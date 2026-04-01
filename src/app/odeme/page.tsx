@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
   Copy, Check, MessageCircle, ArrowRight, ArrowLeft, ShoppingBag,
   CircleDot, Circle, Banknote, Package, Truck, Shield, Clock,
-  MapPin, Plus, X, User
+  MapPin, Plus, X, Search
 } from 'lucide-react'
 import { useCartStore } from '@/store/cart'
 import { useAuthStore } from '@/store/auth'
@@ -15,6 +15,7 @@ import { formatPrice } from '@/lib/format'
 import { Breadcrumb } from '@/components/shared/Breadcrumb'
 import { EmptyState } from '@/components/shared/EmptyState'
 import toast from 'react-hot-toast'
+import turkeyAddresses from '@/data/turkey-addresses.json'
 
 type Step = 'address' | 'payment' | 'confirmation'
 
@@ -37,18 +38,8 @@ interface IbanAccount {
   ibanNumber: string
 }
 
-const CITIES = [
-  'Adana','Adıyaman','Afyonkarahisar','Ağrı','Aksaray','Amasya','Ankara','Antalya',
-  'Ardahan','Artvin','Aydın','Balıkesir','Bartın','Batman','Bayburt','Bilecik',
-  'Bingöl','Bitlis','Bolu','Burdur','Bursa','Çanakkale','Çankırı','Çorum',
-  'Denizli','Diyarbakır','Düzce','Edirne','Elazığ','Erzincan','Erzurum','Eskişehir',
-  'Gaziantep','Giresun','Gümüşhane','Hakkari','Hatay','Iğdır','Isparta','İstanbul',
-  'İzmir','Kahramanmaraş','Karabük','Karaman','Kars','Kastamonu','Kayseri','Kırıkkale',
-  'Kırklareli','Kırşehir','Kilis','Kocaeli','Konya','Kütahya','Malatya','Manisa',
-  'Mardin','Mersin','Muğla','Muş','Nevşehir','Niğde','Ordu','Osmaniye',
-  'Rize','Sakarya','Samsun','Şanlıurfa','Siirt','Sinop','Sivas','Şırnak',
-  'Tekirdağ','Tokat','Trabzon','Tunceli','Uşak','Van','Yalova','Yozgat','Zonguldak'
-]
+const cityDistrictMap = turkeyAddresses as Record<string, string[]>
+const CITIES = Object.keys(cityDistrictMap)
 
 export default function CheckoutPage() {
   const [mounted, setMounted] = useState(false)
@@ -62,11 +53,16 @@ export default function CheckoutPage() {
   const [selectedBank, setSelectedBank] = useState<string | null>(null)
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null)
 
-  // Addresses
+  // Guest address form (also used for logged-in users adding new address)
+  const [guestForm, setGuestForm] = useState({
+    fullName: '', phone: '', city: '', district: '', address: ''
+  })
+
+  // Logged-in user addresses
   const [addresses, setAddresses] = useState<Address[]>([])
   const [showAddressForm, setShowAddressForm] = useState(false)
   const [addressForm, setAddressForm] = useState({
-    title: '', fullName: '', phone: '', city: '', district: '', address: '', zipCode: ''
+    title: '', fullName: '', phone: '', city: '', district: '', address: ''
   })
 
   // IBAN from DB
@@ -78,6 +74,10 @@ export default function CheckoutPage() {
   } | null>(null)
 
   const [submitting, setSubmitting] = useState(false)
+
+  // Districts for selected city
+  const guestDistricts = useMemo(() => cityDistrictMap[guestForm.city] || [], [guestForm.city])
+  const addressFormDistricts = useMemo(() => cityDistrictMap[addressForm.city] || [], [addressForm.city])
 
   const fetchAddresses = useCallback(async () => {
     try {
@@ -119,6 +119,7 @@ export default function CheckoutPage() {
     setTimeout(() => setCopiedIban(null), 3000)
   }
 
+  // For logged-in users: save address to DB
   async function saveAddress() {
     if (!addressForm.fullName || !addressForm.phone || !addressForm.city || !addressForm.district || !addressForm.address) {
       toast.error('Lütfen zorunlu alanları doldurun')
@@ -134,7 +135,7 @@ export default function CheckoutPage() {
         const newAddr = await res.json()
         toast.success('Adres kaydedildi')
         setShowAddressForm(false)
-        setAddressForm({ title: '', fullName: '', phone: '', city: '', district: '', address: '', zipCode: '' })
+        setAddressForm({ title: '', fullName: '', phone: '', city: '', district: '', address: '' })
         await fetchAddresses()
         setSelectedAddress(newAddr.id)
       }
@@ -143,9 +144,29 @@ export default function CheckoutPage() {
     }
   }
 
+  // Validate guest form
+  function isGuestFormValid() {
+    return guestForm.fullName && guestForm.phone && guestForm.city && guestForm.district && guestForm.address
+  }
+
+  function getSelectedAddressData(): { fullName: string; phone: string; city: string; district: string; address: string } | null {
+    if (user && selectedAddress) {
+      const addr = addresses.find(a => a.id === selectedAddress)
+      if (addr) return { fullName: addr.fullName, phone: addr.phone, city: addr.city, district: addr.district, address: addr.address }
+    }
+    if (!user && isGuestFormValid()) {
+      return { ...guestForm }
+    }
+    return null
+  }
+
   function goToPayment() {
-    if (!selectedAddress) {
+    if (user && !selectedAddress) {
       toast.error('Lütfen bir teslimat adresi seçin')
+      return
+    }
+    if (!user && !isGuestFormValid()) {
+      toast.error('Lütfen tüm zorunlu alanları doldurun')
       return
     }
     const num = `ERX-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`
@@ -158,25 +179,32 @@ export default function CheckoutPage() {
     if (!selectedBank) return
     setSubmitting(true)
 
-    const selectedAddr = addresses.find(a => a.id === selectedAddress)
+    const addressData = getSelectedAddressData()
     const bankAccount = ibanAccounts.find(a => a.id === selectedBank)
 
-    // Save order to DB
     try {
+      const body: Record<string, unknown> = {
+        items: validItems.map(i => ({
+          productSlug: i.product.slug,
+          productName: i.product.name,
+          productPrice: i.product.salePrice || i.product.price,
+          quantity: i.quantity,
+        })),
+        address: addressData || {},
+        totalAmount: grandTotal,
+        bankName: bankAccount?.bankName || 'Bilinmeyen',
+      }
+
+      // Add guest info if not logged in
+      if (!user) {
+        body.guestName = guestForm.fullName
+        body.guestPhone = guestForm.phone
+      }
+
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items: validItems.map(i => ({
-            productSlug: i.product.slug,
-            productName: i.product.name,
-            productPrice: i.product.salePrice || i.product.price,
-            quantity: i.quantity,
-          })),
-          address: selectedAddr || {},
-          totalAmount: grandTotal,
-          bankName: bankAccount?.bankName || 'Bilinmeyen',
-        }),
+        body: JSON.stringify(body),
       })
 
       if (res.ok) {
@@ -192,7 +220,6 @@ export default function CheckoutPage() {
         })
         setOrderNumber(order.orderNumber)
       } else {
-        // Fallback if API fails
         const productNames = validItems.map(i => `${i.product.name} x${i.quantity}`).join(', ')
         const msg = `Merhaba, sipariş için dekont gönderiyorum.\nSipariş No: ${orderNumber}.\nTutar: ${formatPrice(grandTotal)}.\nÜrünler: ${productNames}`
         setConfirmedOrder({
@@ -230,36 +257,6 @@ export default function CheckoutPage() {
     )
   }
 
-  // Require login
-  if (!user) {
-    return (
-      <div className="max-w-[800px] mx-auto px-4 pb-12">
-        <Breadcrumb items={[{ label: 'Sepet', href: '/sepet' }, { label: 'Ödeme' }]} />
-        <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center mt-8">
-          <div className="w-16 h-16 bg-[#FB4D8A]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <User className="w-8 h-8 text-[#FB4D8A]" />
-          </div>
-          <h2 className="text-xl font-bold text-[#003033] mb-2">Giriş Yapmanız Gerekiyor</h2>
-          <p className="text-sm text-[#77777b] mb-6">Sipariş verebilmek için hesabınıza giriş yapın veya yeni bir hesap oluşturun.</p>
-          <div className="flex gap-3 justify-center">
-            <Link
-              href="/giris?redirect=/odeme"
-              className="px-6 py-3 rounded-xl bg-[#FB4D8A] text-white font-semibold hover:bg-[#e8437d] transition"
-            >
-              Giriş Yap
-            </Link>
-            <Link
-              href="/kayit?redirect=/odeme"
-              className="px-6 py-3 rounded-xl border-2 border-[#003033] text-[#003033] font-semibold hover:bg-[#003033] hover:text-white transition"
-            >
-              Kayıt Ol
-            </Link>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   if (validItems.length === 0 && step !== 'confirmation') {
     return (
       <div className="max-w-[800px] mx-auto px-4 pb-12">
@@ -280,6 +277,8 @@ export default function CheckoutPage() {
     { key: 'confirmation', label: 'Onay' },
   ]
   const currentStepIndex = steps.findIndex((s) => s.key === step)
+
+  const canProceedToPayment = user ? !!selectedAddress : isGuestFormValid()
 
   return (
     <div className="max-w-[800px] mx-auto px-4 pb-12">
@@ -311,43 +310,20 @@ export default function CheckoutPage() {
 
           {/* Address Section */}
           <div className="mb-6">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-base font-semibold text-[#003033] flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#FB4D8A]" />
-                Teslimat Adresi
-              </h2>
-              <button
-                onClick={() => setShowAddressForm(!showAddressForm)}
-                className="text-sm text-[#FB4D8A] font-medium flex items-center gap-1 hover:underline"
-              >
-                <Plus className="w-4 h-4" /> Yeni Adres
-              </button>
-            </div>
+            <h2 className="text-base font-semibold text-[#003033] flex items-center gap-2 mb-3">
+              <MapPin className="w-4 h-4 text-[#FB4D8A]" />
+              Teslimat Adresi
+            </h2>
 
-            {/* New Address Form */}
-            {showAddressForm && (
-              <div className="bg-white rounded-xl border-2 border-[#FB4D8A] p-5 mb-4">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-semibold text-[#003033]">Yeni Adres Ekle</h3>
-                  <button onClick={() => setShowAddressForm(false)} className="text-[#77777b] hover:text-[#003033]">
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
+            {/* GUEST USER: inline address form */}
+            {!user && (
+              <div className="bg-white rounded-xl border border-gray-200 p-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="sm:col-span-2">
-                    <input
-                      type="text"
-                      value={addressForm.title}
-                      onChange={(e) => setAddressForm({...addressForm, title: e.target.value})}
-                      placeholder="Adres Başlığı (örn: Ev, İş)"
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm"
-                    />
-                  </div>
                   <div>
                     <input
                       type="text"
-                      value={addressForm.fullName}
-                      onChange={(e) => setAddressForm({...addressForm, fullName: e.target.value})}
+                      value={guestForm.fullName}
+                      onChange={(e) => setGuestForm({...guestForm, fullName: e.target.value})}
                       placeholder="Ad Soyad *"
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm"
                     />
@@ -355,16 +331,16 @@ export default function CheckoutPage() {
                   <div>
                     <input
                       type="tel"
-                      value={addressForm.phone}
-                      onChange={(e) => setAddressForm({...addressForm, phone: e.target.value})}
+                      value={guestForm.phone}
+                      onChange={(e) => setGuestForm({...guestForm, phone: e.target.value})}
                       placeholder="Telefon *"
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm"
                     />
                   </div>
                   <div>
                     <select
-                      value={addressForm.city}
-                      onChange={(e) => setAddressForm({...addressForm, city: e.target.value})}
+                      value={guestForm.city}
+                      onChange={(e) => setGuestForm({...guestForm, city: e.target.value, district: ''})}
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm"
                     >
                       <option value="">İl Seçin *</option>
@@ -372,85 +348,172 @@ export default function CheckoutPage() {
                     </select>
                   </div>
                   <div>
-                    <input
-                      type="text"
-                      value={addressForm.district}
-                      onChange={(e) => setAddressForm({...addressForm, district: e.target.value})}
-                      placeholder="İlçe *"
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm"
-                    />
+                    <select
+                      value={guestForm.district}
+                      onChange={(e) => setGuestForm({...guestForm, district: e.target.value})}
+                      disabled={!guestForm.city}
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm disabled:bg-gray-50 disabled:text-gray-400"
+                    >
+                      <option value="">İlçe Seçin *</option>
+                      {guestDistricts.map(d => <option key={d} value={d}>{d}</option>)}
+                    </select>
                   </div>
                   <div className="sm:col-span-2">
                     <textarea
-                      value={addressForm.address}
-                      onChange={(e) => setAddressForm({...addressForm, address: e.target.value})}
+                      value={guestForm.address}
+                      onChange={(e) => setGuestForm({...guestForm, address: e.target.value})}
                       placeholder="Açık Adres (Mahalle, Sokak, Bina No, Daire No) *"
                       rows={2}
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm resize-none"
                     />
                   </div>
-                  <div className="sm:col-span-2 flex gap-3">
-                    <button
-                      onClick={() => setShowAddressForm(false)}
-                      className="px-4 py-2.5 rounded-xl border border-gray-200 text-[#77777b] text-sm font-medium hover:bg-gray-50"
-                    >
-                      İptal
-                    </button>
-                    <button
-                      onClick={saveAddress}
-                      className="px-6 py-2.5 rounded-xl bg-[#FB4D8A] text-white text-sm font-medium hover:bg-[#e8437d] transition"
-                    >
-                      Adresi Kaydet
-                    </button>
-                  </div>
                 </div>
               </div>
             )}
 
-            {/* Address List */}
-            {addresses.length === 0 && !showAddressForm ? (
-              <div className="bg-[#F8F8F8] rounded-xl p-6 text-center">
-                <MapPin className="w-8 h-8 text-[#77777b]/40 mx-auto mb-2" />
-                <p className="text-sm text-[#77777b] mb-3">Henüz kayıtlı adresiniz yok</p>
-                <button
-                  onClick={() => setShowAddressForm(true)}
-                  className="text-sm text-[#FB4D8A] font-medium hover:underline"
-                >
-                  Yeni adres ekleyin →
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {addresses.map((addr) => (
+            {/* LOGGED-IN USER: address list + add new */}
+            {user && (
+              <>
+                <div className="flex items-center justify-end mb-3">
                   <button
-                    key={addr.id}
-                    onClick={() => setSelectedAddress(addr.id)}
-                    className={`w-full text-left rounded-xl border-2 p-4 transition ${
-                      selectedAddress === addr.id
-                        ? 'border-[#FB4D8A] bg-[#FFF5F8]'
-                        : 'border-gray-200 bg-white hover:border-[#FB4D8A]/40'
-                    }`}
+                    onClick={() => setShowAddressForm(!showAddressForm)}
+                    className="text-sm text-[#FB4D8A] font-medium flex items-center gap-1 hover:underline"
                   >
-                    <div className="flex items-start gap-3">
-                      {selectedAddress === addr.id ? (
-                        <CircleDot className="w-5 h-5 text-[#FB4D8A] mt-0.5 shrink-0" />
-                      ) : (
-                        <Circle className="w-5 h-5 text-gray-300 mt-0.5 shrink-0" />
-                      )}
+                    <Plus className="w-4 h-4" /> Yeni Adres
+                  </button>
+                </div>
+
+                {/* New Address Form for logged-in users */}
+                {showAddressForm && (
+                  <div className="bg-white rounded-xl border-2 border-[#FB4D8A] p-5 mb-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-sm font-semibold text-[#003033]">Yeni Adres Ekle</h3>
+                      <button onClick={() => setShowAddressForm(false)} className="text-[#77777b] hover:text-[#003033]">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="sm:col-span-2">
+                        <input
+                          type="text"
+                          value={addressForm.title}
+                          onChange={(e) => setAddressForm({...addressForm, title: e.target.value})}
+                          placeholder="Adres Başlığı (örn: Ev, İş)"
+                          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm"
+                        />
+                      </div>
                       <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-sm font-semibold text-[#003033]">{addr.title}</span>
-                          {addr.isDefault && (
-                            <span className="text-[10px] bg-[#FB4D8A]/10 text-[#FB4D8A] px-2 py-0.5 rounded-full font-medium">Varsayılan</span>
-                          )}
-                        </div>
-                        <p className="text-sm text-[#003033]">{addr.fullName} - {addr.phone}</p>
-                        <p className="text-xs text-[#77777b] mt-0.5">{addr.address}, {addr.district}/{addr.city}</p>
+                        <input
+                          type="text"
+                          value={addressForm.fullName}
+                          onChange={(e) => setAddressForm({...addressForm, fullName: e.target.value})}
+                          placeholder="Ad Soyad *"
+                          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm"
+                        />
+                      </div>
+                      <div>
+                        <input
+                          type="tel"
+                          value={addressForm.phone}
+                          onChange={(e) => setAddressForm({...addressForm, phone: e.target.value})}
+                          placeholder="Telefon *"
+                          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm"
+                        />
+                      </div>
+                      <div>
+                        <select
+                          value={addressForm.city}
+                          onChange={(e) => setAddressForm({...addressForm, city: e.target.value, district: ''})}
+                          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm"
+                        >
+                          <option value="">İl Seçin *</option>
+                          {CITIES.map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <select
+                          value={addressForm.district}
+                          onChange={(e) => setAddressForm({...addressForm, district: e.target.value})}
+                          disabled={!addressForm.city}
+                          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm disabled:bg-gray-50 disabled:text-gray-400"
+                        >
+                          <option value="">İlçe Seçin *</option>
+                          {addressFormDistricts.map(d => <option key={d} value={d}>{d}</option>)}
+                        </select>
+                      </div>
+                      <div className="sm:col-span-2">
+                        <textarea
+                          value={addressForm.address}
+                          onChange={(e) => setAddressForm({...addressForm, address: e.target.value})}
+                          placeholder="Açık Adres (Mahalle, Sokak, Bina No, Daire No) *"
+                          rows={2}
+                          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm resize-none"
+                        />
+                      </div>
+                      <div className="sm:col-span-2 flex gap-3">
+                        <button
+                          onClick={() => setShowAddressForm(false)}
+                          className="px-4 py-2.5 rounded-xl border border-gray-200 text-[#77777b] text-sm font-medium hover:bg-gray-50"
+                        >
+                          İptal
+                        </button>
+                        <button
+                          onClick={saveAddress}
+                          className="px-6 py-2.5 rounded-xl bg-[#FB4D8A] text-white text-sm font-medium hover:bg-[#e8437d] transition"
+                        >
+                          Adresi Kaydet
+                        </button>
                       </div>
                     </div>
-                  </button>
-                ))}
-              </div>
+                  </div>
+                )}
+
+                {/* Saved Address List */}
+                {addresses.length === 0 && !showAddressForm ? (
+                  <div className="bg-[#F8F8F8] rounded-xl p-6 text-center">
+                    <MapPin className="w-8 h-8 text-[#77777b]/40 mx-auto mb-2" />
+                    <p className="text-sm text-[#77777b] mb-3">Henüz kayıtlı adresiniz yok</p>
+                    <button
+                      onClick={() => setShowAddressForm(true)}
+                      className="text-sm text-[#FB4D8A] font-medium hover:underline"
+                    >
+                      Yeni adres ekleyin →
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {addresses.map((addr) => (
+                      <button
+                        key={addr.id}
+                        onClick={() => setSelectedAddress(addr.id)}
+                        className={`w-full text-left rounded-xl border-2 p-4 transition ${
+                          selectedAddress === addr.id
+                            ? 'border-[#FB4D8A] bg-[#FFF5F8]'
+                            : 'border-gray-200 bg-white hover:border-[#FB4D8A]/40'
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          {selectedAddress === addr.id ? (
+                            <CircleDot className="w-5 h-5 text-[#FB4D8A] mt-0.5 shrink-0" />
+                          ) : (
+                            <Circle className="w-5 h-5 text-gray-300 mt-0.5 shrink-0" />
+                          )}
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-sm font-semibold text-[#003033]">{addr.title}</span>
+                              {addr.isDefault && (
+                                <span className="text-[10px] bg-[#FB4D8A]/10 text-[#FB4D8A] px-2 py-0.5 rounded-full font-medium">Varsayılan</span>
+                              )}
+                            </div>
+                            <p className="text-sm text-[#003033]">{addr.fullName} - {addr.phone}</p>
+                            <p className="text-xs text-[#77777b] mt-0.5">{addr.address}, {addr.district}/{addr.city}</p>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
           </div>
 
@@ -517,9 +580,9 @@ export default function CheckoutPage() {
             </Link>
             <button
               onClick={goToPayment}
-              disabled={!selectedAddress}
+              disabled={!canProceedToPayment}
               className={`flex-1 h-[44px] font-semibold rounded-xl flex items-center justify-center gap-2 transition ${
-                selectedAddress ? 'bg-[#FB4D8A] hover:bg-[#e8437d] text-white' : 'bg-[#DFE2E6] text-[#77777b] cursor-not-allowed'
+                canProceedToPayment ? 'bg-[#FB4D8A] hover:bg-[#e8437d] text-white' : 'bg-[#DFE2E6] text-[#77777b] cursor-not-allowed'
               }`}
             >
               Ödemeye Geç <ArrowRight className="w-4 h-4" />
@@ -596,7 +659,6 @@ export default function CheckoutPage() {
                 </button>
               )
             }) : (
-              // Fallback to static config if DB has no accounts
               config.payment.ibanAccounts.map((account) => {
                 const isSelected = selectedBank === account.id
                 return (
@@ -758,8 +820,8 @@ export default function CheckoutPage() {
           </div>
 
           <div className="flex gap-3">
-            <Link href="/hesabim" className="flex-1 h-[44px] border border-[#DFE2E6] text-[#003033] text-sm font-medium rounded-xl flex items-center justify-center gap-2 hover:border-[#FB4D8A] transition">
-              <Truck className="w-4 h-4" /> Siparişlerim
+            <Link href="/siparis-sorgula" className="flex-1 h-[44px] border border-[#DFE2E6] text-[#003033] text-sm font-medium rounded-xl flex items-center justify-center gap-2 hover:border-[#FB4D8A] transition">
+              <Search className="w-4 h-4" /> Sipariş Sorgula
             </Link>
             <Link href="/" className="flex-1 h-[44px] bg-[#FB4D8A] hover:bg-[#e8437d] text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-2 transition">
               <ShoppingBag className="w-4 h-4" /> Alışverişe Devam

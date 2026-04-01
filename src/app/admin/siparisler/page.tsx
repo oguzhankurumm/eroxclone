@@ -21,7 +21,9 @@ interface Order {
   createdAt: string
   address: Record<string, string>
   items: OrderItem[]
-  user: { id: string; email: string; name: string | null; phone: string }
+  user: { id: string; email: string; name: string | null; phone: string } | null
+  guestName: string | null
+  guestPhone: string | null
 }
 
 const statusOptions = [
@@ -108,9 +110,18 @@ export default function AdminOrdersPage() {
             {/* Customer */}
             <div className="bg-gray-50 rounded-xl p-4 mb-4">
               <h3 className="text-sm font-semibold text-[#003033] mb-2">Müşteri Bilgileri</h3>
-              <p className="text-sm text-[#77777b]">{selectedOrder.user?.name || '-'}</p>
-              <p className="text-sm text-[#77777b]">{selectedOrder.user?.email}</p>
-              <p className="text-sm text-[#77777b]">{selectedOrder.user?.phone}</p>
+              {selectedOrder.user ? (
+                <>
+                  <p className="text-sm text-[#77777b]">{selectedOrder.user.name || '-'}</p>
+                  <p className="text-sm text-[#77777b]">{selectedOrder.user.email}</p>
+                  <p className="text-sm text-[#77777b]">{selectedOrder.user.phone}</p>
+                </>
+              ) : (
+                <>
+                  <p className="text-sm text-[#77777b]">{selectedOrder.guestName || '-'} <span className="text-xs bg-orange-100 text-orange-600 px-1.5 py-0.5 rounded-full font-medium ml-1">Misafir</span></p>
+                  <p className="text-sm text-[#77777b]">{selectedOrder.guestPhone || '-'}</p>
+                </>
+              )}
             </div>
 
             {/* Address */}
@@ -206,8 +217,8 @@ export default function AdminOrdersPage() {
                     <tr key={order.id} className="hover:bg-gray-50/50">
                       <td className="px-6 py-4 text-sm font-mono font-medium text-[#003033]">{order.orderNumber}</td>
                       <td className="px-6 py-4">
-                        <p className="text-sm text-[#003033]">{order.user?.name || '-'}</p>
-                        <p className="text-xs text-[#77777b]">{order.user?.email}</p>
+                        <p className="text-sm text-[#003033]">{order.user?.name || order.guestName || '-'} {!order.user && <span className="text-[10px] bg-orange-100 text-orange-600 px-1.5 py-0.5 rounded-full font-medium">Misafir</span>}</p>
+                        <p className="text-xs text-[#77777b]">{order.user?.email || order.guestPhone || '-'}</p>
                       </td>
                       <td className="px-6 py-4 text-sm font-semibold text-[#003033]">
                         ₺{parseFloat(order.totalAmount).toLocaleString('tr-TR', { minimumFractionDigits: 2 })}
