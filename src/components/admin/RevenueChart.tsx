@@ -21,17 +21,17 @@ export function RevenueChart({ data }: Props) {
             <stop offset="95%" stopColor="#FB4D8A" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-        <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#77777b' }} />
-        <YAxis tick={{ fontSize: 11, fill: '#77777b' }} tickFormatter={(v) => `₺${(v / 1000).toFixed(0)}k`} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#1C1C1C" />
+        <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#A1A1A1' }} stroke="#1C1C1C" />
+        <YAxis tick={{ fontSize: 11, fill: '#A1A1A1' }} stroke="#1C1C1C" tickFormatter={(v) => `₺${(v / 1000).toFixed(0)}k`} />
         <Tooltip
-          contentStyle={{ borderRadius: 12, border: '1px solid #eee', fontSize: 13 }}
+          contentStyle={{ borderRadius: 12, border: '1px solid #1C1C1C', background: '#0D0D0D', color: '#FAFAFA', fontSize: 13 }}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           formatter={(value: any, name: any) => [
             name === 'revenue' ? `₺${Number(value).toLocaleString('tr-TR', { minimumFractionDigits: 2 })}` : value,
             name === 'revenue' ? 'Gelir' : 'Sipariş',
           ]}
-          labelStyle={{ fontWeight: 600, color: '#003033' }}
+          labelStyle={{ fontWeight: 600, color: '#FAFAFA' }}
         />
         <Area type="monotone" dataKey="revenue" stroke="#FB4D8A" strokeWidth={2} fillOpacity={1} fill="url(#colorRevenue)" />
       </AreaChart>

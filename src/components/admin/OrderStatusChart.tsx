@@ -14,19 +14,19 @@ const STATUS_CONFIG: Record<string, { label: string; color: string }> = {
   PROCESSING: { label: 'Hazırlanıyor', color: '#8B5CF6' },
   SHIPPED: { label: 'Kargoda', color: '#6366F1' },
   DELIVERED: { label: 'Teslim Edildi', color: '#10B981' },
-  CANCELLED: { label: 'İptal', color: '#EF4444' },
+  CANCELLED: { label: 'İptal', color: '#FF3B5C' },
 }
 
 export function OrderStatusChart({ data }: { data: StatusData[] }) {
   const chartData = data.map((d) => ({
     name: STATUS_CONFIG[d.status]?.label || d.status,
     value: d.count,
-    color: STATUS_CONFIG[d.status]?.color || '#77777b',
+    color: STATUS_CONFIG[d.status]?.color || '#A1A1A1',
   }))
 
   if (chartData.length === 0) {
     return (
-      <div className="h-[280px] flex items-center justify-center text-sm text-[#77777b]">
+      <div className="h-[280px] flex items-center justify-center text-sm text-[var(--muted-foreground)]">
         Henüz sipariş verisi yok
       </div>
     )
@@ -50,7 +50,7 @@ export function OrderStatusChart({ data }: { data: StatusData[] }) {
             ))}
           </Pie>
           <Tooltip
-            contentStyle={{ borderRadius: 12, border: '1px solid #eee', fontSize: 13 }}
+            contentStyle={{ borderRadius: 12, border: '1px solid #1C1C1C', background: '#0D0D0D', color: '#FAFAFA', fontSize: 13 }}
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter={(value: any, name: any) => [value, name]}
           />
@@ -60,8 +60,8 @@ export function OrderStatusChart({ data }: { data: StatusData[] }) {
         {chartData.map((d, i) => (
           <div key={i} className="flex items-center gap-1.5 text-xs">
             <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color }} />
-            <span className="text-[#77777b]">{d.name}</span>
-            <span className="font-semibold text-[#003033]">{d.value}</span>
+            <span className="text-[var(--muted-foreground)]">{d.name}</span>
+            <span className="font-semibold text-[var(--foreground)]">{d.value}</span>
           </div>
         ))}
       </div>

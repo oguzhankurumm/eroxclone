@@ -44,7 +44,7 @@ export default function AdminSettingsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="w-8 h-8 border-4 border-[#FB4D8A]/30 border-t-[#FB4D8A] rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-[var(--primary)]/30 border-t-[var(--primary)] rounded-full animate-spin" />
       </div>
     )
   }
@@ -52,15 +52,15 @@ export default function AdminSettingsPage() {
   return (
     <div className="max-w-2xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#003033]">Site Ayarları</h1>
-        <p className="text-sm text-[#77777b] mt-1">İletişim bilgileri ve mağaza adreslerini yönetin</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)]">Site Ayarları</h1>
+        <p className="text-sm text-[var(--muted-foreground)] mt-1">İletişim bilgileri ve mağaza adreslerini yönetin</p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-gray-100 p-6 space-y-6">
+      <div className="bg-[var(--card)] rounded-xl border border-[var(--border)] p-6 space-y-6">
         {settingFields.map(({ key, label, icon: Icon, placeholder, hint, multiline }) => (
           <div key={key}>
-            <label className="flex items-center gap-2 text-sm font-medium text-[#003033] mb-2">
-              <Icon className="w-4 h-4 text-[#FB4D8A]" />
+            <label className="flex items-center gap-2 text-sm font-medium text-[var(--foreground)] mb-2">
+              <Icon className="w-4 h-4 text-[var(--primary)]" />
               {label}
             </label>
             {multiline ? (
@@ -69,7 +69,7 @@ export default function AdminSettingsPage() {
                 onChange={(e) => setSettings({ ...settings, [key]: e.target.value })}
                 placeholder={placeholder}
                 rows={2}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm resize-none"
+                className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--input)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20 outline-none text-sm resize-none"
               />
             ) : (
               <input
@@ -77,18 +77,18 @@ export default function AdminSettingsPage() {
                 value={settings[key] || ''}
                 onChange={(e) => setSettings({ ...settings, [key]: e.target.value })}
                 placeholder={placeholder}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#FB4D8A] focus:ring-2 focus:ring-[#FB4D8A]/20 outline-none text-sm"
+                className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--input)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20 outline-none text-sm"
               />
             )}
-            {hint && <p className="mt-1 text-xs text-[#77777b]">{hint}</p>}
+            {hint && <p className="mt-1 text-xs text-[var(--muted-foreground)]">{hint}</p>}
           </div>
         ))}
 
-        <div className="pt-4 border-t border-gray-100">
+        <div className="pt-4 border-t border-[var(--border)]">
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#FB4D8A] text-white font-medium hover:bg-[#e8437d] transition text-sm disabled:opacity-50"
+            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--primary)] text-white font-medium hover:bg-[var(--primary)]/80 transition text-sm disabled:opacity-50"
           >
             {saving ? (
               <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />

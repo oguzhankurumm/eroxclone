@@ -1,3 +1,6 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -10,6 +13,9 @@
   --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
   --font-heading: var(--font-sans);
+  --font-display: 'Clash Display', system-ui, sans-serif;
+  --font-body: 'Satoshi', system-ui, sans-serif;
+  --font-mono-nums: 'JetBrains Mono', ui-monospace, monospace;
 
   --color-pink: #FB4D8A;
   --color-pink-light: #FEE8F0;
@@ -47,6 +53,17 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-surface-0: var(--surface-0, transparent);
+  --color-surface-1: var(--surface-1, transparent);
+  --color-surface-2: var(--surface-2, transparent);
+  --color-surface-3: var(--surface-3, transparent);
+  --color-surface-4: var(--surface-4, transparent);
+  --color-primary-muted: var(--primary-muted, transparent);
+  --color-success: var(--success, #00D68F);
+  --color-warning: var(--warning, #FFB800);
+  --color-info: var(--info, #3B82F6);
+  --color-danger: var(--danger, #FF3B5C);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -90,6 +107,63 @@
   --sidebar-border: #DFE2E6;
   --sidebar-ring: #FB4D8A;
 }
+
+/* Admin dark theme — scoped to [data-admin-theme] wrapper */
+[data-admin-theme] {
+  --background: #000000;
+  --foreground: #FAFAFA;
+  --card: #0D0D0D;
+  --card-foreground: #FAFAFA;
+  --popover: #0D0D0D;
+  --popover-foreground: #FAFAFA;
+  --primary: #FB4D8A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #161616;
+  --secondary-foreground: #FAFAFA;
+  --muted: #161616;
+  --muted-foreground: #A1A1A1;
+  --accent: #1C1C1C;
+  --accent-foreground: #FAFAFA;
+  --destructive: #FF3B5C;
+  --border: #1C1C1C;
+  --input: #1A1A1A;
+  --ring: #FB4D8A;
+  --radius: 0.75rem;
+
+  --chart-1: #FB4D8A;
+  --chart-2: #3B82F6;
+  --chart-3: #00D68F;
+  --chart-4: #FFB800;
+  --chart-5: #A1A1A1;
+
+  --sidebar: #000000;
+  --sidebar-foreground: #FAFAFA;
+  --sidebar-primary: #FB4D8A;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(251, 77, 138, 0.12);
+  --sidebar-accent-foreground: #FB4D8A;
+  --sidebar-border: #1C1C1C;
+  --sidebar-ring: #FB4D8A;
+
+  --surface-0: #000000;
+  --surface-1: #0A0A0A;
+  --surface-2: #161616;
+  --surface-3: #1C1C1C;
+  --surface-4: #252525;
+  --primary-muted: rgba(251, 77, 138, 0.12);
+  --success: #00D68F;
+  --warning: #FFB800;
+  --info: #3B82F6;
+  --danger: #FF3B5C;
+
+  color-scheme: dark;
+}
+
+[data-admin-theme] ::-webkit-scrollbar { width: 6px; }
+[data-admin-theme] ::-webkit-scrollbar-track { background: #0A0A0A; }
+[data-admin-theme] ::-webkit-scrollbar-thumb { background: #252525; border-radius: 3px; }
+[data-admin-theme] ::-webkit-scrollbar-thumb:hover { background: #A1A1A1; }
+[data-admin-theme] ::selection { background: rgba(251, 77, 138, 0.3); color: #FAFAFA; }
 
 @layer base {
   * {
