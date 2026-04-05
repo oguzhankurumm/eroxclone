@@ -4,13 +4,14 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, CreditCard, Settings, ShoppingCart, Users,
-  LogOut, ChevronLeft, Menu, X
+  LogOut, ChevronLeft, Menu, X, BarChart3
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useAuthStore } from '@/store/auth'
 
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/trafik', label: 'Trafik Analizi', icon: BarChart3 },
   { href: '/admin/siparisler', label: 'Siparişler', icon: ShoppingCart },
   { href: '/admin/iban', label: 'IBAN Hesapları', icon: CreditCard },
   { href: '/admin/kullanicilar', label: 'Kullanıcılar', icon: Users },

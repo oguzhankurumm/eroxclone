@@ -94,3 +94,26 @@ model OrderItem {
   quantity     Int
   createdAt    DateTime @default(now())
 }
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  referrer  String?
+  source    String?  // google, facebook, instagram, direct, other
+  medium    String?  // organic, cpc, social, referral
+  campaign  String?  // utm_campaign
+  userAgent String?
+  device    String?  // mobile, tablet, desktop
+  browser   String?
+  os        String?
+  country   String?
+  city      String?
+  ip        String?
+  sessionId String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([source])
+  @@index([path])
+  @@index([sessionId])
+}

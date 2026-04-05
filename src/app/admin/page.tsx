@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useQuery } from '@tanstack/react-query'
 import {
   TrendingUp, TrendingDown, DollarSign, ShoppingCart, Users, CreditCard,
   ArrowUpRight, ArrowDownRight, Clock, Package, Truck, CheckCircle, XCircle,
-  AlertTriangle, UserPlus, BarChart3, ShoppingBag, Star
+  AlertTriangle, UserPlus, BarChart3, ShoppingBag, Star, RefreshCw
 } from 'lucide-react'
 import { RevenueChart } from '@/components/admin/RevenueChart'
 import { OrderStatusChart } from '@/components/admin/OrderStatusChart'
@@ -55,19 +55,19 @@ function pctChange(current: number, previous: number): { value: string; positive
   return { value: `${pct >= 0 ? '+' : ''}${pct.toFixed(1)}%`, positive: pct >= 0 }
 }
 
+async function fetchDashboardStats(): Promise<DashboardStats> {
+  const res = await fetch('/api/admin/dashboard/stats')
+  if (!res.ok) throw new Error('Dashboard verileri yuklenemedi')
+  return res.json()
+}
+
 export default function AdminDashboard() {
-  const [stats, setStats] = useState<DashboardStats | null>(null)
-  const [loading, setLoading] = useState(true)
+  const { data: stats, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ['admin-dashboard-stats'],
+    queryFn: fetchDashboardStats,
+  })
 
-  useEffect(() => {
-    fetch('/api/admin/dashboard/stats')
-      .then((r) => r.json())
-      .then(setStats)
-      .catch(console.error)
-      .finally(() => setLoading(false))
-  }, [])
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -91,8 +91,19 @@ export default function AdminDashboard() {
     )
   }
 
-  if (!stats) {
-    return <div className="text-center py-20 text-[#77777b]">Dashboard yüklenemedi</div>
+  if (isError || !stats) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-[#77777b]">{error instanceof Error ? error.message : 'Dashboard yuklenemedi'}</p>
+        <button
+          onClick={() => refetch()}
+          className="mt-4 px-4 py-2 rounded-xl bg-[#FB4D8A] text-white text-sm font-medium hover:bg-[#e8437d] transition inline-flex items-center gap-2"
+        >
+          <RefreshCw className="w-4 h-4" />
+          Tekrar Dene
+        </button>
+      </div>
+    )
   }
 
   const todayVsYesterday = pctChange(stats.revenue.today, stats.revenue.yesterday)

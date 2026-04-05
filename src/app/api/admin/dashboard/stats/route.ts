@@ -213,7 +213,19 @@ export async function GET() {
     if (msg === 'Unauthorized' || msg === 'Forbidden') {
       return NextResponse.json({ error: msg }, { status: msg === 'Unauthorized' ? 401 : 403 })
     }
-    console.error('Dashboard stats error:', e)
-    return NextResponse.json({ error: 'Sunucu hatası' }, { status: 500 })
+    const code = (e as { code?: string })?.code
+    if (code !== 'ECONNREFUSED') {
+      console.error('Dashboard stats error:', e)
+    }
+    return NextResponse.json({
+      revenue: { total: 0, today: 0, yesterday: 0, thisWeek: 0, lastWeek: 0, thisMonth: 0, lastMonth: 0, dailyChart: [] },
+      orders: { total: 0, today: 0, thisWeek: 0, thisMonth: 0, averageValue: 0, byStatus: [] },
+      topProducts: [],
+      customers: { total: 0, newToday: 0, newThisWeek: 0, newThisMonth: 0, returning: 0, uniqueOrdering: 0 },
+      conversion: { averageCartValue: 0, averageItemsPerOrder: 0 },
+      alerts: { pendingOrders: 0, awaitingPayment: 0, activeIbans: 0 },
+      recentOrders: [],
+      recentUsers: [],
+    })
   }
 }

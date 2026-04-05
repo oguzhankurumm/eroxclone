@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+import { Suspense } from "react";
 import { getSiteConfig } from "@/lib/data";
 import { LayoutShell } from "@/components/layout/LayoutShell";
+import { QueryProvider } from "@/components/providers/QueryProvider";
+import { TrackingProvider } from "@/components/tracking/TrackingProvider";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -55,7 +58,10 @@ export default function RootLayout({
   return (
     <html lang="tr" className={`${dmSans.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
-        <LayoutShell>{children}</LayoutShell>
+        <QueryProvider>
+          <Suspense fallback={null}><TrackingProvider /></Suspense>
+          <LayoutShell>{children}</LayoutShell>
+        </QueryProvider>
         <Toaster
           position="top-center"
           toastOptions={{
